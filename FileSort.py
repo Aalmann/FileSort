@@ -1,9 +1,9 @@
-#!/usr/local/bin/python2.7
+#!/usr/bin/python3
 # encoding: utf-8
 '''
 FileSort -- Sorts files based on their EXIF data or file date.
 
-FileSort is a Python program to sort files based on their EXIF or 
+FileSort is a Python program to sort files based on their EXIF or
 file date.
 
 It defines classes_and_methods
@@ -20,12 +20,12 @@ It defines classes_and_methods
 import sys
 import os
 
+import logging
+
 from argparse import ArgumentParser
 from argparse import RawDescriptionHelpFormatter
 from file_sort.analyzer import Analyzer
 from file_sort.copy import Copy
-
-import logging
 
 __all__ = []
 __version__ = '0.1.1'
@@ -51,7 +51,7 @@ class CLIError(Exception):
         return self.msg
 
 
-def main(argv=None):  # IGNORE:C0111
+def main(argv=None):
     '''
     Command line options.
     '''
@@ -64,7 +64,8 @@ def main(argv=None):  # IGNORE:C0111
     program_name = os.path.basename(sys.argv[0])
     program_version = "v%s" % __version__
     program_build_date = str(__updated__)
-    program_version_message = '%%(prog)s %s (%s)' % (program_version, program_build_date)
+    program_version_message = '%%(prog)s %s (%s)' % (program_version,
+                                                     program_build_date)
     program_shortdesc = __import__('__main__').__doc__.split("\n")[1]
     program_license = '''%s
 
@@ -87,11 +88,18 @@ USAGE
         command = argv[1]
         if command == "analyze":
             # Setup argument parser
-            parser = ArgumentParser(description=program_license, formatter_class=RawDescriptionHelpFormatter, prog="FileSort analyze")
-            parser.add_argument("-r", "--recursive", dest="recurse", action="store_true", help="recurse into subfolders [default: %(default)s]")
-            # parser.add_argument("-v", "--verbose", dest="verbose", action="count", help="set verbosity level [default: %(default)s]")
+            parser = ArgumentParser(description=program_license,
+                        formatter_class=RawDescriptionHelpFormatter,
+                        prog="FileSort analyze")
+            parser.add_argument("-r", "--recursive", dest="recurse",
+                        action="store_true",
+                        help="recurse into subfolders [default: %(default)s]")
+            # parser.add_argument("-v", "--verbose", dest="verbose",
+            # action="count", help="set verbosity level [default: %(default)s]")
 
-            parser.add_argument(dest="directory", help="paths to directory with files", metavar="directory", nargs='?')
+            parser.add_argument(dest="directory",
+                                help="paths to directory with files",
+                                metavar="directory", nargs='?')
 
             # Process arguments
             args = parser.parse_args(argv[2:])
@@ -102,7 +110,7 @@ USAGE
                 print("\nERROR: directory not set")
                 parser.print_usage()
                 sys.exit(1)
-            logging.info("Using directory " + args.directory)
+            logging.info("Using directory %s" % (args.directory))
             directory = args.directory
             # verbose = args.verbose
             recurse = args.recurse
@@ -118,10 +126,15 @@ USAGE
             #        print("Recursive mode off")
         elif command == "copy":
             # Setup argument parser
-            parser = ArgumentParser(description=program_license, formatter_class=RawDescriptionHelpFormatter, prog="FileSort copy")
-            # parser.add_argument("-v", "--verbose", dest="verbose", action="count", help="set verbosity level [default: %(default)s]")
+            parser = ArgumentParser(description=program_license,
+                                    formatter_class=RawDescriptionHelpFormatter,
+                                    prog="FileSort copy")
+            # parser.add_argument("-v", "--verbose", dest="verbose",
+            # action="count", help="set verbosity level [default: %(default)s]")
 
-            parser.add_argument(dest="directory", help="paths to directory with files", metavar="directory", nargs='?')
+            parser.add_argument(dest="directory",
+                                help="paths to directory with files",
+                                metavar="directory", nargs='?')
 
             # Process arguments
             args = parser.parse_args(argv[2:])
@@ -132,41 +145,54 @@ USAGE
                 print("\nERROR: directory not set")
                 parser.print_usage()
                 sys.exit(1)
-            logging.info("Using directory " + args.directory)
+            logging.info("Using directory %s" % (args.directory))
             directory = args.directory
             # verbose = args.verbose
 
             copier = Copy(directory)
             copier.copy()
 
-        elif command == "--help" or command == "-h" or command == "help":
+        elif command in ["--help", "-h", "help"]:
             # Setup argument parser
             commd_help = "\nThe following commands are available:"
             commd_help += "\n    help       print this help message"
-            commd_help += "\n    analyze    Analyze a directory and create a mapping file for copy or move command."
-            commd_help += "\n    copy       Copies the files listed in mapping file to the analyzed destinations"
-            commd_help += "\n    move       Moves the files listed in mapping file to the analyzed destination"
-            commd_help += "\n    revert     Tries to reverts the changes from move command."
-            parser = ArgumentParser(description=program_license + commd_help, formatter_class=RawDescriptionHelpFormatter, prog="FileSort")
-            parser.add_argument("command", help="Command to be executed", nargs="?")
-            parser.add_argument('-v', '--version', action='version', version=program_version_message)
+            commd_help += "\n    analyze    \
+            Analyze a directory and create a mapping file for copy or move \
+            command."
+            commd_help += "\n    copy       Copies the files listed in mapping \
+            file to the analyzed destinations"
+            commd_help += "\n    move       Moves the files listed in mapping \
+            file to the analyzed destination"
+            commd_help += "\n    revert     Tries to reverts the changes from \
+            move command."
+            parser = ArgumentParser(description=program_license + commd_help,
+                                    formatter_class=RawDescriptionHelpFormatter,
+                                    prog="FileSort")
+            parser.add_argument("command", help="Command to be executed",
+                                nargs="?")
+            parser.add_argument('-v', '--version', action='version',
+                                version=program_version_message)
 
             # Process arguments
             args = parser.parse_args()
         elif command == "-v" or command == "--version":
-            parser = ArgumentParser(description=program_license, formatter_class=RawDescriptionHelpFormatter, prog="FileSort")
-            parser.add_argument('-v', '--version', action='version', version=program_version_message)
+            parser = ArgumentParser(description=program_license,
+                                    formatter_class=RawDescriptionHelpFormatter,
+                                    prog="FileSort")
+            parser.add_argument('-v', '--version', action='version',
+                                version=program_version_message)
             # Process arguments
             args = parser.parse_args()
         return 0
     except KeyboardInterrupt:
         ### handle keyboard interrupt ###
         return 0
-    except Exception as e:
+    except Exception as exc:
         if DEBUG or TESTRUN:
-            raise(e)
+            raise(exc)
         indent = len(program_name) * " "
-        sys.stderr.write(program_name + ": " + repr(e) + "\n" + e.message + "\n")
+        sys.stderr.write(program_name + ": " + repr(exc) + "\n" +
+                         exc.message + "\n")
         import traceback
         sys.stderr.write(traceback.format_exc())
         sys.stderr.write(indent + "  for help use --help")

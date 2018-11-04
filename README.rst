@@ -1,11 +1,11 @@
 *******
-image_sorter.py
+FileSort.py
 *******
 
-.. image:: https://travis-ci.org/aalmann/image_sorter.png
-        :target: https://travis-ci.org/aalmann/image_sorter
+.. image:: https://travis-ci.org/aalmann/FileSort.png
+        :target: https://travis-ci.org/aalmann/FileSort
 
-Easy to use Python module to sort images based on their Exif metadata.
+Easy to use Python module to sort files based on their Exif metadata (if it's an image) or file attributes.
 
 
 Installation
@@ -13,16 +13,16 @@ Installation
 
 PyPI
 ====
-It is recommended to install the `PyPI package <https://pypi.python.org/pypi/ImageSorter>`_,
+It is recommended to install the `PyPI package <https://pypi.python.org/pypi/FileSort>`_,
 using pip or easy_install to get latest and greatest version::
 
-    $ pip install image_sorter
+    $ pip install FileSort
 
 See the `pip documentation <https://pip.pypa.io/en/latest/user_guide.html>`_ for more info.
 
 Archive
 =======
-You can download an archive from the project's `releases page <https://github.com/aalmann/image_sorter/releases>`_.
+You can download an archive from the project's `releases page <https://github.com/aalmann/FileSort/releases>`_.
 
 Extract and enjoy.
 
@@ -30,13 +30,11 @@ Extract and enjoy.
 Compatibility
 *************
 
-image_sorter.py is tested on the following Python versions:
+FileSort.py is tested on the following Python versions:
 
-- 2.6
 - 2.7
-- 3.3
-- 3.4
-- 3.5
+- 3.6
+- 3.7
 
 
 Usage
@@ -47,9 +45,10 @@ Command line
 
 Some examples::
 
-    $ image_sorter.py <image director>
+    $ FileSort.py analyze <input files directory>
+    $ FileSort.py copy <input files directory>
 
 Show command line options::
 
-    $ image_sorter.py --help
+    $ FileSort.py --help
 
