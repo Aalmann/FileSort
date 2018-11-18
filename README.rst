@@ -2,8 +2,11 @@
 FileSort.py
 *******
 
-.. image:: https://travis-ci.org/aalmann/FileSort.png
-        :target: https://travis-ci.org/aalmann/FileSort
+.. image:: https://travis-ci.org/Aalmann/FileSort.svg?branch=master
+    :target: https://travis-ci.org/Aalmann/FileSort
+
+.. image:: https://codecov.io/gh/Aalmann/FileSort/branch/master/graph/badge.svg
+  :target: https://codecov.io/gh/Aalmann/FileSort
 
 Easy to use Python module to sort files based on their Exif metadata (if it's an image) or file attributes.
 
