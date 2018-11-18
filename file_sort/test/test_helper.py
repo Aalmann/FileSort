@@ -92,12 +92,15 @@ class FileSortHelper(object):
         if fs_cmd:
             args = [fs_cmd] + args
             print(">>> Calling: %s" % (args))
-            return os.system(" ".join(args))
+            ret_val = os.system(" ".join(args))
         else:
             from FileSort import main
             args = ["FileSort.py"] + args
             print(">>> Calling: %s" % (args))
             try:
-                return main(args)
+                ret_val = main(args)
             except SystemExit as sys_ex:
-                return sys_ex.code
+                ret_val = sys_ex.code
+
+        print(ret_val)
+        return ret_val

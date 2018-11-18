@@ -5,7 +5,7 @@ Created on 04.11.2018
 '''
 import unittest
 
-from .test_helper import TestData, FileSortHelper
+from file_sort.test.test_helper import TestData, FileSortHelper
 
 
 class TestCommandLine(unittest.TestCase):
@@ -24,7 +24,7 @@ class TestCommandLine(unittest.TestCase):
         self.assertEqual(FileSortHelper.call_File_Sort(["--help"]), 0)
 
     def test_2_analyze_1(self):
-        self.assertEqual(FileSortHelper.call_File_Sort(["analyze"]), 1)
+        self.assertNotEqual(FileSortHelper.call_File_Sort(["analyze"]), 0)
 
     def test_2_analyze_2(self):
         self.assertEqual(FileSortHelper.call_File_Sort(["analyze", "-h"]), 0)

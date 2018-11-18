@@ -63,7 +63,7 @@ class Copy(object):
             new_short = new_path.replace(self._directory, "")
             logging.info("Copying %s --> %s" % (old_short, new_short))
             shutil.copy2(old_path, new_path)
-        pass
+        logging.info("====== Finished processing %s files. ======" % (len(self._mapping._files)))
 
     def _load_files(self):
         self._mapping.load(self._files_file)

@@ -114,7 +114,11 @@ class Analyzer(object):
                 logging.info("Processing directory: " +
                              os.path.join(root, name))
         self._mapping.save(self._settings_file, self._files_file)
-        pass
+
+        logging.info(
+            "====== Found %s files to be processed by 'copy' command. ======"
+            % (len(self._mapping._files)))
+        logging.info("  > Check the files.filesort content and call the copy command.")
 
     def _get_new_file_path(self, file_base, best_matching_date):
         path = os.path.join(self._directory,
