@@ -2,8 +2,8 @@
 
 from setuptools import setup, find_packages
 
-from FileSort import __doc__ as fs_doc
-from FileSort import __version__ as fs_version
+from file_sort.fs_main import __doc__ as fs_doc
+from file_sort.fs_main import __version__ as fs_version
 
 README_FILE = open("README.rst", "rt").read()
 VERSION = fs_version

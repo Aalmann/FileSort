@@ -94,7 +94,7 @@ class FileSortHelper(object):
             print(">>> Calling: %s" % (args))
             ret_val = os.system(" ".join(args))
         else:
-            from FileSort import main
+            from file_sort.fs_main import main
             args = ["FileSort.py"] + args
             print(">>> Calling: %s" % (args))
             try:
