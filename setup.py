@@ -24,7 +24,6 @@ setup(
     version=VERSION,
     author="Aalmann",
     author_email="ttt.aalmann@web.de",
-    packages=find_packages(exclude="test"),
     scripts=["FileSort.py"],
     url="https://github.com/aalmann/file_sort",
     license="MIT",
@@ -32,6 +31,10 @@ setup(
     description=" ".join(DOC.splitlines()).strip(),
     long_description=README_FILE,
     install_requires=read_requirements('file_sort/requirements.txt'),
+    packages=find_packages(exclude="test"),
+    package_data={
+        'file_sort': ['*.txt'],
+    },
     classifiers=[
         "Development Status :: 5 - Production/Stable",
         "Environment :: Console",
