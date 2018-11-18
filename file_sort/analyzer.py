@@ -33,19 +33,19 @@ class Analyzer(object):
 
         def load(self, settings_filename, files_filename):
             with open(settings_filename, "r") as f:
-                ds = json.load(f, encoding='cp1250')
+                ds = json.load(f)
                 self._settings = ds.get("settings")
             with open(files_filename, "r") as f:
-                df = json.load(f, encoding='cp1250')
+                df = json.load(f)
                 self._files = df.get("files")
 
         def save(self, settings_filename, files_filename):
             ds = {"settings": self._settings}
             df = {"files": self._files}
             with open(settings_filename, "w") as f:
-                json.dump(ds, f, encoding='cp1250', indent=4)
+                json.dump(ds, f, indent=4)
             with open(files_filename, "w") as f:
-                json.dump(df, f, encoding='cp1250', indent=4)
+                json.dump(df, f, indent=4)
 
     def __init__(self, directory, recurse=True):
         '''
@@ -75,13 +75,13 @@ class Analyzer(object):
             for name in files:
                 file_name = os.path.join(root, name)
                 file_base = os.path.basename(file_name)
-                ext = file_name.split(".")[-1:][-1]
+                ext = file_name.split(".")[-1:][-1] or ''
                 if file_name in [self._settings_file, self._files_file]:
                     continue
-                if ext.lower() in ['jpg', 'jpeg', 'mp4', 'mpg', 'mpeg',
+                if ext.lower() in ['', 'jpg', 'jpeg', 'mp4', 'mpg', 'mpeg',
                                    'mov', 'gif', '3gp', 'avi', 'wmv',
                                    'lrv', 'png', 'pdf', 'enc', 'nomedia',
-                                   'thm']:
+                                   'thm', 'md', 'doc', 'docx', 'txt']:
                     d = {}
                     d["old_file_path"] = file_name
                     logging.debug("analyzing: " + file_name)
@@ -165,8 +165,7 @@ class Analyzer(object):
         # at first try to find a date with YYYY MM DD with
         # separator -._ or without
         result = re.search(
-            "([1][9][7-9]\d{1}|[2][0]\d{2})([\-\.\_]\
-            {0,1})(\d{2})([\-\.\_]{0,1})(\d{2})",
+            "([1][9][7-9]\d{1}|[2][0]\d{2})([\-\.\_]{0,1})(\d{2})([\-\.\_]{0,1})(\d{2})",
             file_base)
         if result and str(result) != "null":
             # group 0 contains the complete match, so we take 1, 3 and 5
@@ -177,8 +176,7 @@ class Analyzer(object):
             # at first try to find a date with DD MM YYYY with
             # separator -._ or without
             result = re.search(
-                "(\d{2})([\-\.\_]{0,1})(\d{2})([\-\.\_]\
-                {0,1})([1][9][7-9]\d{1}|[2][0]\d{2})",
+                "(\d{2})([\-\.\_]{0,1})(\d{2})([\-\.\_]{0,1})([1][9][7-9]\d{1}|[2][0]\d{2})",
                 file_base)
             if result and str(result) != "null":
                 # again group 0 contains the complete match,

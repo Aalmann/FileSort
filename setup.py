@@ -1,28 +1,32 @@
 # -*- coding: utf-8 -*-
 
 from setuptools import setup, find_packages
-import FileSort
 
-readme_file = open("README.rst", "rt").read()
+from FileSort import __doc__ as fs_doc
+from FileSort import __version__ as fs_version
+
+README_FILE = open("README.rst", "rt").read()
+VERSION = fs_version
+DOC = fs_doc
 
 setup(
     name="FileSort",
-    version=FileSort.__version__,
+    version=VERSION,
     author="Aalmann",
     author_email="ttt.aalmann@web.de",
     packages=find_packages(),
     scripts=["FileSort.py"],
     url="https://github.com/aalmann/file_sort",
-    license="BSD",
+    license="MIT",
     keywords="image sorter based on exif metadata",
-    description=" ".join(FileSort.__doc__.splitlines()).strip(),
-    long_description=readme_file,
+    description=" ".join(DOC.splitlines()).strip(),
+    long_description=README_FILE,
     classifiers=[
         "Development Status :: 5 - Production/Stable",
         "Environment :: Console",
         "Intended Audience :: Developers",
         "Intended Audience :: End Users/Desktop",
-        "License :: OSI Approved :: BSD License",
+        "License :: OSI Approved :: MIT License",
         "Operating System :: OS Independent",
         "Programming Language :: Python :: 2.6",
         "Programming Language :: Python :: 2.7",

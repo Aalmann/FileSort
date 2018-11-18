@@ -28,6 +28,9 @@ pip-log.txt
 # Unit test / coverage reports
 .coverage
 .tox
+test_data
+master.tar.gz
+
 
 # Translations
 *.mo
@@ -39,3 +42,4 @@ pip-log.txt
 .project
 .pydevproject
 .settings
+__pycache__

@@ -26,7 +26,7 @@ def _run_bin(pyinstaller_path):
         raise Exception("Binary not working")
 
 
-def _windows_version_file(version):
+def _windows_version_file(VERSION):
     template = """# UTF-8
 #
 # For more details about fixed file info 'ffi' see:
@@ -61,18 +61,18 @@ VSVersionInfo(
         [StringStruct(u'Comments', u'This executable was created with pyinstaller'),
         StringStruct(u'CompanyName', u'Alexander Hanl'),
         StringStruct(u'FileDescription', u'File sorter - to sort especially images by their date'),
-        StringStruct(u'FileVersion', u'{version}'),
+        StringStruct(u'FileVersion', u'{VERSION}'),
         StringStruct(u'LegalCopyright', u'Copyright 2018 Alexander Hanl'),
         StringStruct(u'ProductName', u'FileSort'),
-        StringStruct(u'ProductVersion', u'{version}')])
+        StringStruct(u'ProductVersion', u'{VERSION}')])
       ]),
     VarFileInfo([VarStruct(u'Translation', [0, 1200])])
   ]
 )"""
-    if "-" in version:
-        version, _ = version.split("-")
-    version_tuple = tuple([int(v) for v in version.split(".")] + [0])
-    return template.format(version=version, version_tuple=version_tuple)
+    if "-" in VERSION:
+        VERSION, _ = VERSION.split("-")
+    version_tuple = tuple([int(v) for v in VERSION.split(".")] + [0])
+    return template.format(VERSION=VERSION, version_tuple=version_tuple)
 
 
 def pyinstall(source_folder):

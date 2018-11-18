@@ -12,7 +12,7 @@ It defines classes_and_methods
 
 @copyright:  2018. All rights reserved.
 
-@license:    Apache License 2.0
+@license:    MIT
 
 @deffield    updated: Updated
 '''
@@ -28,9 +28,9 @@ from file_sort.analyzer import Analyzer
 from file_sort.copy import Copy
 
 __all__ = []
-__version__ = '0.1.1'
+__version__ = '0.2.0'
 __date__ = '2018-03-05'
-__updated__ = '2018-03-05'
+__updated__ = '2018-11-18'
 
 DEBUG = 0
 TESTRUN = 0
@@ -55,7 +55,6 @@ def main(argv=None):
     '''
     Command line options.
     '''
-
     if argv is None:
         argv = sys.argv
     else:
@@ -66,20 +65,16 @@ def main(argv=None):
     program_build_date = str(__updated__)
     program_version_message = '%%(prog)s %s (%s)' % (program_version,
                                                      program_build_date)
-    program_shortdesc = __import__('__main__').__doc__.split("\n")[1]
+    program_shortdesc = __doc__.split("\n")[1]
     program_license = '''%s
 
-  Created by Alexander Hanl (Aalmann) on %s.
-  Copyright 2018 . All rights reserved.
+  Created by Alexander Hanl (Aalmann) on %s (last update %s).
+  Copyright 2018. All rights reserved.
 
-  Licensed under the Apache License 2.0
-  http://www.apache.org/licenses/LICENSE-2.0
-
-  Distributed on an "AS IS" basis without warranties
-  or conditions of any kind, either express or implied.
+  Licensed under MIT License
 
 USAGE
-''' % (program_shortdesc, str(__date__))
+''' % (program_shortdesc, str(__date__), str(__updated__))
 
     if len(argv) <= 1:
         argv.append("--help")
@@ -89,11 +84,11 @@ USAGE
         if command == "analyze":
             # Setup argument parser
             parser = ArgumentParser(description=program_license,
-                        formatter_class=RawDescriptionHelpFormatter,
-                        prog="FileSort analyze")
+                                    formatter_class=RawDescriptionHelpFormatter,
+                                    prog="FileSort analyze")
             parser.add_argument("-r", "--recursive", dest="recurse",
-                        action="store_true",
-                        help="recurse into subfolders [default: %(default)s]")
+                                action="store_true",
+                                help="recurse into subfolders [default: %(default)s]")
             # parser.add_argument("-v", "--verbose", dest="verbose",
             # action="count", help="set verbosity level [default: %(default)s]")
 
@@ -109,7 +104,7 @@ USAGE
                 logging.error("directory not set.")
                 print("\nERROR: directory not set")
                 parser.print_usage()
-                sys.exit(1)
+                return 1
             logging.info("Using directory %s" % (args.directory))
             directory = args.directory
             # verbose = args.verbose
@@ -144,7 +139,7 @@ USAGE
                 logging.error("directory not set.")
                 print("\nERROR: directory not set")
                 parser.print_usage()
-                sys.exit(1)
+                return 1
             logging.info("Using directory %s" % (args.directory))
             directory = args.directory
             # verbose = args.verbose
@@ -185,18 +180,23 @@ USAGE
             args = parser.parse_args()
         return 0
     except KeyboardInterrupt:
-        ### handle keyboard interrupt ###
+        # handle keyboard interrupt
         return 0
     except Exception as exc:
         if DEBUG or TESTRUN:
             raise(exc)
         indent = len(program_name) * " "
         sys.stderr.write(program_name + ": " + repr(exc) + "\n" +
-                         exc.message + "\n")
+                         exc.msg + "\n")
         import traceback
         sys.stderr.write(traceback.format_exc())
         sys.stderr.write(indent + "  for help use --help")
         return 2
+
+
+def run():
+    # main(sys.argv[1:])
+    return main()
 
 
 if __name__ == "__main__":
@@ -222,4 +222,5 @@ if __name__ == "__main__":
         stats.print_stats()
         statsfile.close()
         sys.exit(0)
+
     sys.exit(main())

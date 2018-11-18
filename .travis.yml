@@ -1,15 +1,10 @@
 language: python
 python:
-  - "2.6"
   - "2.7"
-  - "3.3"
-  - "3.4"
   - "3.5"
+  - "3.6"
+  - "3.7"
 install:
   - "pip install ."
-# get the test images
-before_script:
-  - "wget https://github.com/aalmann/image_sorter-samples/archive/master.tar.gz"
-  - "tar -xzf master.tar.gz"
 script:
-  - "find image_sorter-samples -name *.jpg | xargs image_sorter.py"
+  - "python -m unittest test/CL_Tests.py"
