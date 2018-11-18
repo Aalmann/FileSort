@@ -89,7 +89,7 @@ class FileSortHelper(object):
         if not isinstance(args, list):
             args = [args]
         fs_cmd = FileSortHelper._get_file_sort_cmd()
-        if fs_cmd:
+        if fs_cmd and os.environ.get("FILE_SORT_TEST_EXECUTABLE"):
             args = [fs_cmd] + args
             print(">>> Calling: %s" % (args))
             ret_val = os.system(" ".join(args))
