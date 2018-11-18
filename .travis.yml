@@ -8,4 +8,4 @@ install:
   - "pip install -r file_sort/requirements_test.txt"
   - "pip install ."
 script:
-  - "python -m unittest test/CL_Tests.py"
+  - "python -m unittest file_sort/test/CL_Tests.py"

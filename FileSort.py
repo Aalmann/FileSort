@@ -178,6 +178,7 @@ USAGE
                                 version=program_version_message)
             # Process arguments
             args = parser.parse_args()
+
         return 0
     except KeyboardInterrupt:
         # handle keyboard interrupt
