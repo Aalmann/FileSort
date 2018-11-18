@@ -9,18 +9,29 @@ README_FILE = open("README.rst", "rt").read()
 VERSION = fs_version
 DOC = fs_doc
 
+
+def read_requirements(req_filename):
+    reqs = []
+    with open(req_filename, "rt") as req_file:
+        for line in req_file.read().splitlines():
+            if not line.strip().startswith("#"):
+                reqs.append(line)
+    return reqs
+
+
 setup(
     name="FileSort",
     version=VERSION,
     author="Aalmann",
     author_email="ttt.aalmann@web.de",
-    packages=find_packages(),
+    packages=find_packages(exclude="test"),
     scripts=["FileSort.py"],
     url="https://github.com/aalmann/file_sort",
     license="MIT",
     keywords="image sorter based on exif metadata",
     description=" ".join(DOC.splitlines()).strip(),
     long_description=README_FILE,
+    install_requires=read_requirements('file_sort/requirements.txt'),
     classifiers=[
         "Development Status :: 5 - Production/Stable",
         "Environment :: Console",
