@@ -10,7 +10,8 @@ install:
   - "pip install ."
 
 script:
-  - "python -m unittest file_sort/test/CL_Tests.py"
+  - "nosetests --with-coverage --verbosity=2 file_sort.test.CL_tests"
+  #- "python -m unittest file_sort/test/CL_Tests.py"
 
 after_success:
-  - bash <(curl -s https://codecov.io/bash)
+  - codecov
