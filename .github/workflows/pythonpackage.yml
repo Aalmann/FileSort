@@ -34,4 +34,4 @@ jobs:
         nosetests --with-coverage --verbosity=2 file_sort.test
     - name: Codecoverage
       run: |
-        codecov
+        codecov -t ${{ secrets.CODECOV_TOKEN }} 
