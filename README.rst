@@ -2,6 +2,9 @@
 FileSort.py
 *******
 
+.. image:: https://github.com/Aalmann/FileSort/workflows/Python%20package/badge.svg   
+    :target: https://github.com/Aalmann/FileSort/actions?query=workflow%3A%22Python+package%22
+
 .. image:: https://travis-ci.org/Aalmann/FileSort.svg?branch=master
     :target: https://travis-ci.org/Aalmann/FileSort
 
